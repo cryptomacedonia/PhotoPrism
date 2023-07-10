@@ -6,8 +6,12 @@
 //
 
 import Foundation
-struct MediaItem: Codable, Identifiable {
-    let id: String?
+import Alamofire
+struct MediaItem: Codable, Identifiable, Hashable {
+//    static func == (lhs: MediaItem, rhs: MediaItem) -> Bool {
+//           return lhs.uid == rhs.uid
+//       }
+    let id: String = UUID().uuidString
     let uid: String?
     let type: String?
     let typeSrc: String?
@@ -73,8 +77,10 @@ struct MediaItem: Codable, Identifiable {
     let cellAccuracy: Int?
     let faces: Int?
     let cornerRadius: CGFloat = 5.0
-
-    enum CodingKeys: String, CodingKey {
+    var selected: Bool = false
+    var liked: Bool = false
+    var showTitle: Bool = false
+    enum CodingKeys: String, CodingKey, Equatable {
         case id = "ID"
         case uid = "UID"
         case type = "Type"
@@ -142,13 +148,36 @@ struct MediaItem: Codable, Identifiable {
         case faces = "Faces"
     }
     static func sampleItems(count: Int = 100)->[MediaItem] {
-        print(gallerySampleData.utf8)
-        return try! JSONDecoder().decode([MediaItem].self, from: Data(gallerySampleData.utf8))
+//        print(gallerySampleData.utf8)
+        return Array((try! JSONDecoder().decode([MediaItem].self, from: Data(gallerySampleData.utf8))).prefix(count))
     }
+    static func getImagesFromPhotoPrismTest(completion:@escaping ([MediaItem])->()) {
+      
+            AF.request("\(apiUrl)/api/v1/photos?count=120", method: .get, parameters: nil, encoding:URLEncoding.default, headers: nil, interceptor: nil)
+    //        AF.request("https://demo.photoprism.app/api/v1/photos?count=120&offset=0&merged=true&country=&camera=0&lens=0&label=&year=0&month=0&color=&order=newest&q=\(searchText)&public=true&quality=3", method: .get, parameters: nil, encoding: URLEncoding.default, headers: nil, interceptor: nil)
+                .response { resp in
+                    switch resp.result {
+                    case let .success(data):
+                        do {
+                            let jsonData = try JSONDecoder().decode([MediaItem].self, from: data!)
+                            print(jsonData)
+                            completion(jsonData)
+                        } catch {
+                            print(error.localizedDescription)
+                            completion([])
+                        }
+                    case let .failure(error):
+                        print(error.localizedDescription)
+                        completion([])
+                    }
+                }
+        }
+   // https://photoprism.celliqa.com/api/v1/photos?count=120
+    
 }
 
 // MARK: - File
-struct File: Codable {
+struct File: Codable, Equatable, Hashable {
     let uid: String?
     let photoUID: String?
     let name: String?
@@ -211,7 +240,7 @@ struct File: Codable {
 }
 
 // MARK: - Marker
-struct Marker: Codable {
+struct Marker: Codable, Equatable, Hashable {
     let uid: String?
     let fileUID: String?
     let type: String?

@@ -11,7 +11,9 @@
 		CA2B08CC2A52C74C00EC793D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2B08CB2A52C74C00EC793D /* ContentView.swift */; };
 		CA2B08CE2A52C74E00EC793D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CA2B08CD2A52C74E00EC793D /* Assets.xcassets */; };
 		CA2B08D12A52C74E00EC793D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CA2B08D02A52C74E00EC793D /* Preview Assets.xcassets */; };
-		CAB697442A5470B000F84F14 /* SideMenuRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB697432A5470B000F84F14 /* SideMenuRowView.swift */; };
+		CA9FBD682A5C93DD00398F86 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = CA9FBD672A5C93DD00398F86 /* Kingfisher */; };
+		CAA74F742A5EE47800165A2B /* Debounce in Frameworks */ = {isa = PBXBuildFile; productRef = CAA74F732A5EE47800165A2B /* Debounce */; };
+		CAA74F772A5EE58D00165A2B /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = CAA74F762A5EE58D00165A2B /* Alamofire */; };
 		CAB697462A555A1800F84F14 /* MediaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB697452A555A1800F84F14 /* MediaItem.swift */; };
 		CAB6974A2A555B8200F84F14 /* AppData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB697492A555B8200F84F14 /* AppData.swift */; };
 		CAB6974D2A55A2B200F84F14 /* LocalPhotosService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB6974C2A55A2B200F84F14 /* LocalPhotosService.swift */; };
@@ -25,7 +27,6 @@
 		CA2B08CB2A52C74C00EC793D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		CA2B08CD2A52C74E00EC793D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CA2B08D02A52C74E00EC793D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		CAB697432A5470B000F84F14 /* SideMenuRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuRowView.swift; sourceTree = "<group>"; };
 		CAB697452A555A1800F84F14 /* MediaItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaItem.swift; sourceTree = "<group>"; };
 		CAB697492A555B8200F84F14 /* AppData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppData.swift; sourceTree = "<group>"; };
 		CAB6974B2A55A25800F84F14 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -39,6 +40,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CAA74F772A5EE58D00165A2B /* Alamofire in Frameworks */,
+				CA9FBD682A5C93DD00398F86 /* Kingfisher in Frameworks */,
+				CAA74F742A5EE47800165A2B /* Debounce in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,7 +75,6 @@
 				CAB697502A58A25F00F84F14 /* PagerView.swift */,
 				CAB697452A555A1800F84F14 /* MediaItem.swift */,
 				CAB697492A555B8200F84F14 /* AppData.swift */,
-				CAB697432A5470B000F84F14 /* SideMenuRowView.swift */,
 				CAB6974E2A56C6AC00F84F14 /* GallerySampleData.swift */,
 				CA2B08CD2A52C74E00EC793D /* Assets.xcassets */,
 				CA2B08CF2A52C74E00EC793D /* Preview Content */,
@@ -103,6 +106,11 @@
 			dependencies = (
 			);
 			name = PhotoPrism;
+			packageProductDependencies = (
+				CA9FBD672A5C93DD00398F86 /* Kingfisher */,
+				CAA74F732A5EE47800165A2B /* Debounce */,
+				CAA74F762A5EE58D00165A2B /* Alamofire */,
+			);
 			productName = PhotoPrism;
 			productReference = CA2B08C62A52C74C00EC793D /* PhotoPrism.app */;
 			productType = "com.apple.product-type.application";
@@ -131,6 +139,11 @@
 				Base,
 			);
 			mainGroup = CA2B08BD2A52C74C00EC793D;
+			packageReferences = (
+				CA9FBD662A5C93DD00398F86 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				CAA74F722A5EE47800165A2B /* XCRemoteSwiftPackageReference "Debounce" */,
+				CAA74F752A5EE58C00165A2B /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			productRefGroup = CA2B08C72A52C74C00EC793D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -160,7 +173,6 @@
 				CA2B08CC2A52C74C00EC793D /* ContentView.swift in Sources */,
 				CAB697462A555A1800F84F14 /* MediaItem.swift in Sources */,
 				CA2B08CA2A52C74C00EC793D /* PhotoPrismApp.swift in Sources */,
-				CAB697442A5470B000F84F14 /* SideMenuRowView.swift in Sources */,
 				CAB697512A58A25F00F84F14 /* PagerView.swift in Sources */,
 				CAB6974D2A55A2B200F84F14 /* LocalPhotosService.swift in Sources */,
 				CAB6974F2A56C6AC00F84F14 /* GallerySampleData.swift in Sources */,
@@ -293,7 +305,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"PhotoPrism/Preview Content\"";
-				DEVELOPMENT_TEAM = 6HZJKC6RCN;
+				DEVELOPMENT_TEAM = GF7K354RN3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PhotoPrism/Info.plist;
@@ -303,6 +315,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -324,7 +337,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"PhotoPrism/Preview Content\"";
-				DEVELOPMENT_TEAM = 6HZJKC6RCN;
+				DEVELOPMENT_TEAM = GF7K354RN3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PhotoPrism/Info.plist;
@@ -334,6 +347,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -369,6 +383,51 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		CA9FBD662A5C93DD00398F86 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
+		CAA74F722A5EE47800165A2B /* XCRemoteSwiftPackageReference "Debounce" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/cgossain/Debounce.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+		CAA74F752A5EE58C00165A2B /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		CA9FBD672A5C93DD00398F86 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CA9FBD662A5C93DD00398F86 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+		CAA74F732A5EE47800165A2B /* Debounce */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CAA74F722A5EE47800165A2B /* XCRemoteSwiftPackageReference "Debounce" */;
+			productName = Debounce;
+		};
+		CAA74F762A5EE58D00165A2B /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CAA74F752A5EE58C00165A2B /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = CA2B08BE2A52C74C00EC793D /* Project object */;
 }
