@@ -22,7 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		CA2B08C62A52C74C00EC793D /* PhotoPrism.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoPrism.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CA2B08C62A52C74C00EC793D /* ScaleSync.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScaleSync.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA2B08C92A52C74C00EC793D /* PhotoPrismApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPrismApp.swift; sourceTree = "<group>"; };
 		CA2B08CB2A52C74C00EC793D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		CA2B08CD2A52C74E00EC793D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -60,7 +60,7 @@
 		CA2B08C72A52C74C00EC793D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				CA2B08C62A52C74C00EC793D /* PhotoPrism.app */,
+				CA2B08C62A52C74C00EC793D /* ScaleSync.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -93,9 +93,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		CA2B08C52A52C74C00EC793D /* PhotoPrism */ = {
+		CA2B08C52A52C74C00EC793D /* ScaleSync */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CA2B08D42A52C74E00EC793D /* Build configuration list for PBXNativeTarget "PhotoPrism" */;
+			buildConfigurationList = CA2B08D42A52C74E00EC793D /* Build configuration list for PBXNativeTarget "ScaleSync" */;
 			buildPhases = (
 				CA2B08C22A52C74C00EC793D /* Sources */,
 				CA2B08C32A52C74C00EC793D /* Frameworks */,
@@ -105,14 +105,14 @@
 			);
 			dependencies = (
 			);
-			name = PhotoPrism;
+			name = ScaleSync;
 			packageProductDependencies = (
 				CA9FBD672A5C93DD00398F86 /* Kingfisher */,
 				CAA74F732A5EE47800165A2B /* Debounce */,
 				CAA74F762A5EE58D00165A2B /* Alamofire */,
 			);
 			productName = PhotoPrism;
-			productReference = CA2B08C62A52C74C00EC793D /* PhotoPrism.app */;
+			productReference = CA2B08C62A52C74C00EC793D /* ScaleSync.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -148,7 +148,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				CA2B08C52A52C74C00EC793D /* PhotoPrism */,
+				CA2B08C52A52C74C00EC793D /* ScaleSync */,
 			);
 		};
 /* End PBXProject section */
@@ -233,7 +233,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -287,7 +287,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -309,19 +309,19 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PhotoPrism/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "need camera";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We will need to access your photos";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.scalefocus.woowave.photoprism.PhotoPrism;
+				PRODUCT_BUNDLE_IDENTIFIER = com.scalesync.photos;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -341,19 +341,19 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PhotoPrism/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "need camera";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We will need to access your photos";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.scalefocus.woowave.photoprism.PhotoPrism;
+				PRODUCT_BUNDLE_IDENTIFIER = com.scalesync.photos;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -373,7 +373,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CA2B08D42A52C74E00EC793D /* Build configuration list for PBXNativeTarget "PhotoPrism" */ = {
+		CA2B08D42A52C74E00EC793D /* Build configuration list for PBXNativeTarget "ScaleSync" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CA2B08D52A52C74E00EC793D /* Debug */,
