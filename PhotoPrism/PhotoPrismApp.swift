@@ -8,7 +8,12 @@
 import Alamofire
 import Debounce
 import SwiftUI
+import Shout
 
+import Dispatch
+import NIOCore
+import NIOPosix
+import NIOSSH
 @main
 
 
@@ -30,6 +35,7 @@ struct PhotoPrismApp: App {
             VStack {
                 !showQRScanner ? Button {
                     print("connecting...")
+//                    test4()
                     showQRScanner.toggle()
                 } label: {
                     Text("QR Code")
@@ -45,7 +51,7 @@ struct PhotoPrismApp: App {
                                     let jsonData = try JSONDecoder().decode([String].self, from: data!)
                                     showQRScanner.toggle()
                                     mediaItems = jsonData.map({ item in
-                                        let mediaItem = MediaItem(uid: "example_uid", type: "example_type", typeSrc: "example_typeSrc", takenAt: "2023-07-30", takenAtLocal: "2023-07-30", takenSrc: "example_takenSrc", timeZone: "example_timeZone", path: "example_path", name: "example_name", originalName: "example_originalName", title: "example_title", description: "example_description", year: 2023, month: 7, day: 30, country: "example_country", stack: 1, favorite: true, mediaItemPrivate: false, iso: 200, focalLength: 50, fNumber: 1.8, exposure: "example_exposure", quality: 10, resolution: 1920, color: 16777215, scan: false, panorama: false, cameraID: 1, cameraModel: "example_cameraModel", lensID: 2, lensModel: "example_lensModel", lat: 37.7749, lng: -122.4194, cellID: "example_cellID", placeID: "example_placeID", placeSrc: "example_placeSrc", placeLabel: "example_placeLabel", placeCity: "example_placeCity", placeState: "example_placeState", placeCountry: "example_placeCountry", instanceID: "example_instanceID", fileUID: "example_fileUID", fileRoot: "example_fileRoot", fileName: item, hash: "example_hash", width: 1920.0, height: 1080.0, portrait: false, merged: true, createdAt: "example_createdAt", updatedAt: "example_updatedAt", editedAt: "example_editedAt", checkedAt: "example_checkedAt", deletedAt: "example_deletedAt", files: nil, cameraSrc: "example_cameraSrc", cameraMake: "example_cameraMake", altitude: 100, lensMake: "example_lensMake", documentID: "example_documentID", cameraSerial: "example_cameraSerial", cellAccuracy: 5, faces: 2)
+                                        let mediaItem = MediaItem(uid: "example_uid", type: "example_type", typeSrc: "example_typeSrc", takenAt: "2023-07-30", takenAtLocal: "2023-07-30", takenSrc: "example_takenSrc", timeZone: "example_timeZone", path: "example_path", name: "example_name", originalName: "example_originalName", title: "example_title", description: "example_description", year: 2023, month: 7, day: 30, country: "example_country", stack: 1, favorite: true, mediaItemPrivate: false, iso: 200, focalLength: 50, fNumber: 1.8, exposure: "example_exposure", quality: 10, resolution: 1920, color: 16777215, scan: false, panorama: false, cameraID: 1, cameraModel: "example_cameraModel", lensID: 2, lensModel: "example_lensModel", lat: 37.7749, lng: -122.4194, cellID: "example_cellID", placeID: "example_placeID", placeSrc: "example_placeSrc", placeLabel: "example_placeLabel", placeCity: "example_placeCity", placeState: "example_placeState", placeCountry: "example_placeCountry", instanceID: "example_instanceID", fileUID: "example_fileUID", fileRoot: "example_fileRoot", fileName: item.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) , hash: "example_hash", width: 1920.0, height: 1080.0, portrait: false, merged: true, createdAt: "example_createdAt", updatedAt: "example_updatedAt", editedAt: "example_editedAt", checkedAt: "example_checkedAt", deletedAt: "example_deletedAt", files: nil, cameraSrc: "example_cameraSrc", cameraMake: "example_cameraMake", altitude: 100, lensMake: "example_lensMake", documentID: "example_documentID", cameraSerial: "example_cameraSerial", cellAccuracy: 5, faces: 2)
                                            
                                         return mediaItem
                                     })
@@ -464,5 +470,138 @@ extension URL {
         URLSession.shared.dataTask(with: request) { _, response, _ in
             completion((response as? HTTPURLResponse)?.statusCode == 200)
         }.resume()
+    }
+}
+
+
+func test() {
+   
+    var ssh = try! SSH(host: "192.168.100.85", port: 58553)
+        // Enable dynamic forwarding using a custom command
+       // try shout.execute("ssh -D 1080 -f -C -q -N \(username)@\(hostname)")
+    // ssh =
+    
+//    let ssh = try SSH(host: "example.com")
+    // or
+    //let ssh = try SSH(host: "example.com", port: 22)
+    //try? ssh?.authenticate(username: "foo", privateKey: "~/.ssh/id_rsa")
+try! ssh.authenticate(username: "foo", password: "bar")//    try ssh.execute("ls -a")
+  
+
+    // Set up dynamic forwarding (SOCKS proxy) on a local port (e.g., 8080)
+//    let localPort: UInt = 8080
+   // try channel.requestPortForwarding(forAddress: "127.0.0.1", port: localPort)
+ //   ssh.
+   // try! ssh.execute("ssh -L localhost:8888:192.168.100.85:8888 foo@192.168.100.85:58553")
+//    try ssh.execute("pwd")
+  //  ... ssh -D [LOCAL_IP:]LOCAL_PORT [USER@]SSH_SERVER
+    print("igor")
+  
+         //  sshWrapper.connectToHost(ipField.text, port: 22, user: userField.text, password: passwordField.text, error: &error)
+}
+
+var bootstrap:NIOClientTCPBootstrapProtocol?
+func test4() {
+    // This file contains an example NIO SSH client. As NIO SSH is currently under active
+    // development this file doesn't currently do all that much, but it does provide a binary you
+    // can kick off to get a feel for how NIO SSH drives the connection live. As the feature set of
+    // NIO SSH increases we'll be adding to this client to try to make it a better example of what you
+    // can do with NIO SSH.
+    final class ErrorHandler: ChannelInboundHandler {
+        typealias InboundIn = Any
+
+        func errorCaught(context: ChannelHandlerContext, error: Error) {
+            print("Error in pipeline: \(error)")
+            context.close(promise: nil)
+        }
+    }
+
+    final class AcceptAllHostKeysDelegate: NIOSSHClientServerAuthenticationDelegate {
+        func validateHostKey(hostKey: NIOSSHPublicKey, validationCompletePromise: EventLoopPromise<Void>) {
+            // Do not replicate this in your own code: validate host keys! This is a
+            // choice made for expedience, not for any other reason.
+            validationCompletePromise.succeed(())
+        }
+    }
+
+    let parser = SimpleCLIParser() //[bind_address:]port:host:hostport
+//    let parseResult = parser.parse(commands: ["nssh", "-L" ,"[bind_address:]port:host:hostport"])
+    var parseResult = parser.parse(listen: .init(bindHost:"localhost",bindPort: 8888, targetHost: URL(string: "ssh://192.168.100.85")!, targetPort: 8888))
+    parseResult.password = "bar"
+    parseResult.user = "foo"
+    parseResult.port = 56682
+    parseResult.host = "192.168.100.85"
+    
+    let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+    defer {
+        try! group.syncShutdownGracefully()
+    }
+
+    bootstrap = ClientBootstrap(group: group)
+        .channelInitializer { channel in
+            channel.pipeline.addHandlers([NIOSSHHandler(role: .client(.init(userAuthDelegate: InteractivePasswordPromptDelegate(username: parseResult.user, password: parseResult.password), serverAuthDelegate: AcceptAllHostKeysDelegate())), allocator: channel.allocator, inboundChildChannelInitializer: nil), ErrorHandler()])
+        }
+        .channelOption(ChannelOptions.socket(SocketOptionLevel(SOL_SOCKET), SO_REUSEADDR), value: 1)
+        .channelOption(ChannelOptions.socket(SocketOptionLevel(IPPROTO_TCP), TCP_NODELAY), value: 1)
+
+    let channel = try! bootstrap!.connect(host: parseResult.host, port: parseResult.port).wait()
+    
+    if let listen = parseResult.listen {
+        // We've been asked to port forward.
+        let server = PortForwardingServer(group: group,
+                                          bindHost: "localhost",
+                                          bindPort: listen.bindPort) { inboundChannel in
+            // This block executes whenever a new inbound channel is received. We want to forward it to the peer.
+            // To do that, we have to begin by creating a new SSH channel of the appropriate type.
+            channel.pipeline.handler(type: NIOSSHHandler.self).flatMap { sshHandler in
+                let promise = inboundChannel.eventLoop.makePromise(of: Channel.self)
+                let directTCPIP = SSHChannelType.DirectTCPIP(targetHost: String(listen.targetHost.path),
+                                                             targetPort: listen.targetPort,
+                                                             originatorAddress: inboundChannel.remoteAddress!)
+                sshHandler.createChannel(promise,
+                                         channelType: .directTCPIP(directTCPIP)) { childChannel, channelType in
+                    guard case .directTCPIP = channelType else {
+                        return channel.eventLoop.makeFailedFuture(SSHClientError.invalidChannelType)
+                    }
+
+                    // Attach a pair of glue handlers, one in the inbound channel and one in the outbound one.
+                    // We also add an error handler to both channels, and a wrapper handler to the SSH child channel to
+                    // encapsulate the data in SSH messages.
+                    // When the glue handlers are in, we can create both channels.
+                    let (ours, theirs) = GlueHandler.matchedPair()
+                    return childChannel.pipeline.addHandlers([SSHWrapperHandler(), ours, ErrorHandler()]).flatMap {
+                        inboundChannel.pipeline.addHandlers([theirs, ErrorHandler()])
+                    }
+                }
+
+                // We need to erase the channel here: we just want success or failure info.
+                return promise.futureResult.map { _ in }
+            }
+        }
+
+        // Run the server until complete
+      //  try! server.run().wait()
+
+    } else {
+        // We've been asked to exec.
+        let exitStatusPromise = channel.eventLoop.makePromise(of: Int.self)
+        let childChannel: Channel = try! channel.pipeline.handler(type: NIOSSHHandler.self).flatMap { sshHandler in
+            let promise = channel.eventLoop.makePromise(of: Channel.self)
+            sshHandler.createChannel(promise) { childChannel, channelType in
+                guard channelType == .session else {
+                    return channel.eventLoop.makeFailedFuture(SSHClientError.invalidChannelType)
+                }
+                return childChannel.pipeline.addHandlers([ExampleExecHandler(command: parseResult.commandString, completePromise: exitStatusPromise), ErrorHandler()])
+            }
+            return promise.futureResult
+        }.wait()
+
+        // Wait for the connection to close
+        try! childChannel.closeFuture.wait()
+        let exitStatus = try! exitStatusPromise.futureResult.wait()
+        try! channel.close().wait()
+
+        // Exit like we're the command.
+        exit(Int32(exitStatus))
     }
 }

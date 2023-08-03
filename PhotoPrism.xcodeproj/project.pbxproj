@@ -12,6 +12,14 @@
 		CA2B08CE2A52C74E00EC793D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CA2B08CD2A52C74E00EC793D /* Assets.xcassets */; };
 		CA2B08D12A52C74E00EC793D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CA2B08D02A52C74E00EC793D /* Preview Assets.xcassets */; };
 		CA9FBD682A5C93DD00398F86 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = CA9FBD672A5C93DD00398F86 /* Kingfisher */; };
+		CAA0FAEF2A7AB47100D68E4C /* Shout in Frameworks */ = {isa = PBXBuildFile; productRef = CAA0FAEE2A7AB47100D68E4C /* Shout */; };
+		CAA0FAF22A7AB76900D68E4C /* SSH2 in Frameworks */ = {isa = PBXBuildFile; productRef = CAA0FAF12A7AB76900D68E4C /* SSH2 */; };
+		CAA0FAF52A7AC94A00D68E4C /* NIOSSH in Frameworks */ = {isa = PBXBuildFile; productRef = CAA0FAF42A7AC94A00D68E4C /* NIOSSH */; };
+		CAA0FAFD2A7ACA5900D68E4C /* PortForwardingServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA0FAF72A7ACA5900D68E4C /* PortForwardingServer.swift */; };
+		CAA0FAFE2A7ACA5900D68E4C /* GlueHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA0FAF82A7ACA5900D68E4C /* GlueHandler.swift */; };
+		CAA0FAFF2A7ACA5900D68E4C /* ExecHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA0FAF92A7ACA5900D68E4C /* ExecHandler.swift */; };
+		CAA0FB002A7ACA5900D68E4C /* InteractivePasswordPromptDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA0FAFA2A7ACA5900D68E4C /* InteractivePasswordPromptDelegate.swift */; };
+		CAA0FB022A7ACA5900D68E4C /* SimpleCLIParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA0FAFC2A7ACA5900D68E4C /* SimpleCLIParser.swift */; };
 		CAA74F742A5EE47800165A2B /* Debounce in Frameworks */ = {isa = PBXBuildFile; productRef = CAA74F732A5EE47800165A2B /* Debounce */; };
 		CAA74F772A5EE58D00165A2B /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = CAA74F762A5EE58D00165A2B /* Alamofire */; };
 		CAB697462A555A1800F84F14 /* MediaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB697452A555A1800F84F14 /* MediaItem.swift */; };
@@ -27,6 +35,12 @@
 		CA2B08CB2A52C74C00EC793D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		CA2B08CD2A52C74E00EC793D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CA2B08D02A52C74E00EC793D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		CAA0FAF72A7ACA5900D68E4C /* PortForwardingServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PortForwardingServer.swift; sourceTree = "<group>"; };
+		CAA0FAF82A7ACA5900D68E4C /* GlueHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlueHandler.swift; sourceTree = "<group>"; };
+		CAA0FAF92A7ACA5900D68E4C /* ExecHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecHandler.swift; sourceTree = "<group>"; };
+		CAA0FAFA2A7ACA5900D68E4C /* InteractivePasswordPromptDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InteractivePasswordPromptDelegate.swift; sourceTree = "<group>"; };
+		CAA0FAFB2A7ACA5900D68E4C /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		CAA0FAFC2A7ACA5900D68E4C /* SimpleCLIParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleCLIParser.swift; sourceTree = "<group>"; };
 		CAB697452A555A1800F84F14 /* MediaItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaItem.swift; sourceTree = "<group>"; };
 		CAB697492A555B8200F84F14 /* AppData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppData.swift; sourceTree = "<group>"; };
 		CAB6974B2A55A25800F84F14 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -40,8 +54,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CAA0FAF52A7AC94A00D68E4C /* NIOSSH in Frameworks */,
+				CAA0FAF22A7AB76900D68E4C /* SSH2 in Frameworks */,
 				CAA74F772A5EE58D00165A2B /* Alamofire in Frameworks */,
 				CA9FBD682A5C93DD00398F86 /* Kingfisher in Frameworks */,
+				CAA0FAEF2A7AB47100D68E4C /* Shout in Frameworks */,
 				CAA74F742A5EE47800165A2B /* Debounce in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -69,6 +86,7 @@
 			isa = PBXGroup;
 			children = (
 				CAB6974B2A55A25800F84F14 /* Info.plist */,
+				CAA0FAF62A7ACA5900D68E4C /* NIOSSHClient */,
 				CA2B08C92A52C74C00EC793D /* PhotoPrismApp.swift */,
 				CAB6974C2A55A2B200F84F14 /* LocalPhotosService.swift */,
 				CA2B08CB2A52C74C00EC793D /* ContentView.swift */,
@@ -88,6 +106,19 @@
 				CA2B08D02A52C74E00EC793D /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		CAA0FAF62A7ACA5900D68E4C /* NIOSSHClient */ = {
+			isa = PBXGroup;
+			children = (
+				CAA0FAF72A7ACA5900D68E4C /* PortForwardingServer.swift */,
+				CAA0FAF82A7ACA5900D68E4C /* GlueHandler.swift */,
+				CAA0FAF92A7ACA5900D68E4C /* ExecHandler.swift */,
+				CAA0FAFA2A7ACA5900D68E4C /* InteractivePasswordPromptDelegate.swift */,
+				CAA0FAFB2A7ACA5900D68E4C /* main.swift */,
+				CAA0FAFC2A7ACA5900D68E4C /* SimpleCLIParser.swift */,
+			);
+			path = NIOSSHClient;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -110,6 +141,9 @@
 				CA9FBD672A5C93DD00398F86 /* Kingfisher */,
 				CAA74F732A5EE47800165A2B /* Debounce */,
 				CAA74F762A5EE58D00165A2B /* Alamofire */,
+				CAA0FAEE2A7AB47100D68E4C /* Shout */,
+				CAA0FAF12A7AB76900D68E4C /* SSH2 */,
+				CAA0FAF42A7AC94A00D68E4C /* NIOSSH */,
 			);
 			productName = PhotoPrism;
 			productReference = CA2B08C62A52C74C00EC793D /* ScaleSync.app */;
@@ -143,6 +177,9 @@
 				CA9FBD662A5C93DD00398F86 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				CAA74F722A5EE47800165A2B /* XCRemoteSwiftPackageReference "Debounce" */,
 				CAA74F752A5EE58C00165A2B /* XCRemoteSwiftPackageReference "Alamofire" */,
+				CAA0FAED2A7AB47100D68E4C /* XCRemoteSwiftPackageReference "Shout" */,
+				CAA0FAF02A7AB76900D68E4C /* XCRemoteSwiftPackageReference "libssh2-apple" */,
+				CAA0FAF32A7AC94A00D68E4C /* XCRemoteSwiftPackageReference "swift-nio-ssh" */,
 			);
 			productRefGroup = CA2B08C72A52C74C00EC793D /* Products */;
 			projectDirPath = "";
@@ -170,13 +207,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CAA0FB022A7ACA5900D68E4C /* SimpleCLIParser.swift in Sources */,
 				CA2B08CC2A52C74C00EC793D /* ContentView.swift in Sources */,
 				CAB697462A555A1800F84F14 /* MediaItem.swift in Sources */,
 				CA2B08CA2A52C74C00EC793D /* PhotoPrismApp.swift in Sources */,
+				CAA0FAFF2A7ACA5900D68E4C /* ExecHandler.swift in Sources */,
 				CAB697512A58A25F00F84F14 /* PagerView.swift in Sources */,
+				CAA0FAFE2A7ACA5900D68E4C /* GlueHandler.swift in Sources */,
+				CAA0FAFD2A7ACA5900D68E4C /* PortForwardingServer.swift in Sources */,
 				CAB6974D2A55A2B200F84F14 /* LocalPhotosService.swift in Sources */,
 				CAB6974F2A56C6AC00F84F14 /* GallerySampleData.swift in Sources */,
 				CAB6974A2A555B8200F84F14 /* AppData.swift in Sources */,
+				CAA0FB002A7ACA5900D68E4C /* InteractivePasswordPromptDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -393,6 +435,30 @@
 				minimumVersion = 7.0.0;
 			};
 		};
+		CAA0FAED2A7AB47100D68E4C /* XCRemoteSwiftPackageReference "Shout" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jakeheis/Shout";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.5.7;
+			};
+		};
+		CAA0FAF02A7AB76900D68E4C /* XCRemoteSwiftPackageReference "libssh2-apple" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mfcollins3/libssh2-apple";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.1;
+			};
+		};
+		CAA0FAF32A7AC94A00D68E4C /* XCRemoteSwiftPackageReference "swift-nio-ssh" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-nio-ssh";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.8.0;
+			};
+		};
 		CAA74F722A5EE47800165A2B /* XCRemoteSwiftPackageReference "Debounce" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/cgossain/Debounce.git";
@@ -416,6 +482,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CA9FBD662A5C93DD00398F86 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		CAA0FAEE2A7AB47100D68E4C /* Shout */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CAA0FAED2A7AB47100D68E4C /* XCRemoteSwiftPackageReference "Shout" */;
+			productName = Shout;
+		};
+		CAA0FAF12A7AB76900D68E4C /* SSH2 */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CAA0FAF02A7AB76900D68E4C /* XCRemoteSwiftPackageReference "libssh2-apple" */;
+			productName = SSH2;
+		};
+		CAA0FAF42A7AC94A00D68E4C /* NIOSSH */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CAA0FAF32A7AC94A00D68E4C /* XCRemoteSwiftPackageReference "swift-nio-ssh" */;
+			productName = NIOSSH;
 		};
 		CAA74F732A5EE47800165A2B /* Debounce */ = {
 			isa = XCSwiftPackageProductDependency;
