@@ -21,6 +21,7 @@ import NIOSSH
 // var apiUrl  = "https://demo-cdn.photoprism.app"
 
 struct PhotoPrismApp: App {
+    
     var photoLibrary = PhotoService()
     @Namespace var namespace
     @State var showDetail: Bool = false
@@ -35,7 +36,7 @@ struct PhotoPrismApp: App {
             VStack {
                 !showQRScanner ? Button {
                     print("connecting...")
-//                    test4()
+                    test4()
                     showQRScanner.toggle()
                 } label: {
                     Text("QR Code")
@@ -501,6 +502,8 @@ try! ssh.authenticate(username: "foo", password: "bar")//    try ssh.execute("ls
 }
 
 var bootstrap:NIOClientTCPBootstrapProtocol?
+var channel:Channel?
+var group: EventLoopGroup = MultiThreadedEventLoopGroup(numberOfThreads: 1)
 func test4() {
     // This file contains an example NIO SSH client. As NIO SSH is currently under active
     // development this file doesn't currently do all that much, but it does provide a binary you
@@ -527,24 +530,34 @@ func test4() {
     let parser = SimpleCLIParser() //[bind_address:]port:host:hostport
 //    let parseResult = parser.parse(commands: ["nssh", "-L" ,"[bind_address:]port:host:hostport"])
     var parseResult = parser.parse(listen: .init(bindHost:"localhost",bindPort: 8888, targetHost: URL(string: "ssh://192.168.100.85")!, targetPort: 8888))
-    parseResult.password = "bar"
+//    parseResult.password = "bar"
     parseResult.user = "foo"
-    parseResult.port = 56682
+    parseResult.port = 45555
     parseResult.host = "192.168.100.85"
     
-    let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
-    defer {
-        try! group.syncShutdownGracefully()
-    }
+    
+//    let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+//    defer {
+//        try! group.syncShutdownGracefully()
+//    }
+
+//    bootstrap = ClientBootstrap(group: group)
+//        .channelInitializer { channel in
+//            channel.pipeline.addHandlers([NIOSSHHandler(role: .client(.init(userAuthDelegate: InteractivePasswordPromptDelegate(username: parseResult.user, password: parseResult.password), serverAuthDelegate: AcceptAllHostKeysDelegate())), allocator: channel.allocator, inboundChildChannelInitializer: nil), ErrorHandler()])
+//        }
+//        .channelOption(ChannelOptions.socket(SocketOptionLevel(SOL_SOCKET), SO_REUSEADDR), value: 1)
+//        .channelOption(ChannelOptions.socket(SocketOptionLevel(IPPROTO_TCP), TCP_NODELAY), value: 1)
 
     bootstrap = ClientBootstrap(group: group)
-        .channelInitializer { channel in
-            channel.pipeline.addHandlers([NIOSSHHandler(role: .client(.init(userAuthDelegate: InteractivePasswordPromptDelegate(username: parseResult.user, password: parseResult.password), serverAuthDelegate: AcceptAllHostKeysDelegate())), allocator: channel.allocator, inboundChildChannelInitializer: nil), ErrorHandler()])
-        }
-        .channelOption(ChannelOptions.socket(SocketOptionLevel(SOL_SOCKET), SO_REUSEADDR), value: 1)
-        .channelOption(ChannelOptions.socket(SocketOptionLevel(IPPROTO_TCP), TCP_NODELAY), value: 1)
-
-    let channel = try! bootstrap!.connect(host: parseResult.host, port: parseResult.port).wait()
+//        .channelInitializer { channel in
+//            channel.pipeline.addHandlers([NIOSSHHandler(role: .client(.init(userAuthDelegate: .init(), serverAuthDelegate: AcceptAllHostKeysDelegate())), allocator: channel.allocator, inboundChildChannelInitializer: nil), ErrorHandler()])
+//        }
+//        .channelOption(ChannelOptions.socket(SocketOptionLevel(SOL_SOCKET), SO_REUSEADDR), value: 1)
+//        .channelOption(ChannelOptions.socket(SocketOptionLevel(IPPROTO_TCP), TCP_NODELAY), value: 1)
+//
+//
+    
+    channel = try? bootstrap!.connect(host: parseResult.host, port: parseResult.port).wait()
     
     if let listen = parseResult.listen {
         // We've been asked to port forward.
@@ -553,7 +566,7 @@ func test4() {
                                           bindPort: listen.bindPort) { inboundChannel in
             // This block executes whenever a new inbound channel is received. We want to forward it to the peer.
             // To do that, we have to begin by creating a new SSH channel of the appropriate type.
-            channel.pipeline.handler(type: NIOSSHHandler.self).flatMap { sshHandler in
+            (channel?.pipeline.handler(type: NIOSSHHandler.self).flatMap { sshHandler in
                 let promise = inboundChannel.eventLoop.makePromise(of: Channel.self)
                 let directTCPIP = SSHChannelType.DirectTCPIP(targetHost: String(listen.targetHost.path),
                                                              targetPort: listen.targetPort,
@@ -561,9 +574,9 @@ func test4() {
                 sshHandler.createChannel(promise,
                                          channelType: .directTCPIP(directTCPIP)) { childChannel, channelType in
                     guard case .directTCPIP = channelType else {
-                        return channel.eventLoop.makeFailedFuture(SSHClientError.invalidChannelType)
+                        return channel!.eventLoop.makeFailedFuture(SSHClientError.invalidChannelType)
                     }
-
+                    
                     // Attach a pair of glue handlers, one in the inbound channel and one in the outbound one.
                     // We also add an error handler to both channels, and a wrapper handler to the SSH child channel to
                     // encapsulate the data in SSH messages.
@@ -573,10 +586,10 @@ func test4() {
                         inboundChannel.pipeline.addHandlers([theirs, ErrorHandler()])
                     }
                 }
-
+                
                 // We need to erase the channel here: we just want success or failure info.
                 return promise.futureResult.map { _ in }
-            }
+            })!
         }
 
         // Run the server until complete
@@ -584,12 +597,12 @@ func test4() {
 
     } else {
         // We've been asked to exec.
-        let exitStatusPromise = channel.eventLoop.makePromise(of: Int.self)
-        let childChannel: Channel = try! channel.pipeline.handler(type: NIOSSHHandler.self).flatMap { sshHandler in
-            let promise = channel.eventLoop.makePromise(of: Channel.self)
+        let exitStatusPromise = channel!.eventLoop.makePromise(of: Int.self)
+        let childChannel: Channel = try! channel!.pipeline.handler(type: NIOSSHHandler.self).flatMap { sshHandler in
+            let promise = channel!.eventLoop.makePromise(of: Channel.self)
             sshHandler.createChannel(promise) { childChannel, channelType in
                 guard channelType == .session else {
-                    return channel.eventLoop.makeFailedFuture(SSHClientError.invalidChannelType)
+                    return channel!.eventLoop.makeFailedFuture(SSHClientError.invalidChannelType)
                 }
                 return childChannel.pipeline.addHandlers([ExampleExecHandler(command: parseResult.commandString, completePromise: exitStatusPromise), ErrorHandler()])
             }
@@ -599,9 +612,181 @@ func test4() {
         // Wait for the connection to close
         try! childChannel.closeFuture.wait()
         let exitStatus = try! exitStatusPromise.futureResult.wait()
-        try! channel.close().wait()
+        try! channel!.close().wait()
 
         // Exit like we're the command.
         exit(Int32(exitStatus))
     }
+}
+//
+//func test5() {
+//
+//    // Define your SSH private key file path and passphrase (if applicable)
+//     let privateKeyFilePath = Bundle.main.url(forResource: "sshKey6", withExtension: "")
+//    let privateKeyPassphrase: ByteBuffer? = nil
+//
+//    // Configure your event loop group
+//    let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+//    defer { try! group.syncShutdownGracefully() }
+//
+//    do {
+//        // Create an SSH client bootstrap
+//        let bootstrap = ClientBootstrap(group: group)
+//
+//        // Load the private key
+//        let privateKey: NIOSSHPrivateKey
+//        if let passphrase = privateKeyPassphrase {
+//            privateKey = try NIOSSHPrivateKey(p256Key: .init(rawRepresentation: Data(contentsOf: privateKeyFilePath!)))
+//        } else {
+//            privateKey = try NIOSSHPrivateKey(p256Key: .init(rawRepresentation: Data(contentsOf: privateKeyFilePath!)))
+//        }
+//
+//        // Connect to the SSH server
+//        let channel = try bootstrap.connect(host: "your-ssh-server.com", port: 22).wait()
+//
+//        // Wait for the SSH negotiation to complete
+//        try channel.pipeline.handler(type: NIOSSHHandler.self).wait()
+//
+//        // Perform SSH user authentication using the private key
+//        try channel.pipeline.addHandlers([
+//            NIOSSHClientUserAuthenticationDelegate(
+//            use
+////                        .init(
+////                    username: "foo", // replace with your username
+////                    privateKey: privateKey
+////                )
+//            ),
+//            {
+//                print("my handler....")
+//            } // Implement YourApplicationHandler to handle the authenticated channel
+//        ]).wait()
+//
+//        // Wait until the channel is closed
+//        try channel.closeFuture.wait()
+//    } catch {
+//        print("Error: \(error)")
+//    }
+//
+//}
+
+import UIKit
+
+class ImageDhash {
+    static func dHash(for image: UIImage, hashSize: Int = 8) -> String? {
+        guard let resizedImage = resizeImage(image, newSize: CGSize(width: hashSize + 1, height: hashSize)),
+              let grayscaleImage = convertToGrayscale(resizedImage),
+              let pixelValues = extractPixelValues(grayscaleImage) else {
+            return nil
+        }
+        
+        var hash = ""
+        for y in 0..<hashSize {
+            for x in 0..<hashSize {
+                let leftPixel = pixelValues[y * (hashSize + 1) + x]
+                let rightPixel = pixelValues[y * (hashSize + 1) + x + 1]
+                
+                if leftPixel < rightPixel {
+                    hash.append("1")
+                } else {
+                    hash.append("0")
+                }
+            }
+        }
+        
+        return hash
+    }
+    
+    private static func resizeImage(_ image: UIImage, newSize: CGSize) -> UIImage? {
+        UIGraphicsBeginImageContextWithOptions(newSize, true, 1.0)
+        image.draw(in: CGRect(origin: .zero, size: newSize))
+        let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return resizedImage
+    }
+    
+    private static func convertToGrayscale(_ image: UIImage) -> UIImage? {
+        let context = CIContext(options: nil)
+        guard let cgImage = context.createCGImage(CIImage(image: image)!, from: CGRect(origin: .zero, size: image.size)) else {
+            return nil
+        }
+        
+        let grayscaleFilter = CIFilter(name: "CIPhotoEffectMono")
+        grayscaleFilter?.setValue(CIImage(cgImage: cgImage), forKey: kCIInputImageKey)
+        guard let outputImage = grayscaleFilter?.outputImage else {
+            return nil
+        }
+        
+        return UIImage(ciImage: outputImage)
+    }
+    
+    private static func extractPixelValues(_ image: UIImage) -> [UInt8]? {
+        guard let cgImage = image.cgImage else {
+            return nil
+        }
+        
+        let width = cgImage.width
+        let height = cgImage.height
+        let bytesPerPixel = 1
+        let bytesPerRow = bytesPerPixel * width
+        let totalBytes = bytesPerRow * height
+        
+        var pixelValues = [UInt8](repeating: 0, count: totalBytes)
+        
+        let context = CGContext(data: &pixelValues,
+                                width: width,
+                                height: height,
+                                bitsPerComponent: 8,
+                                bytesPerRow: bytesPerRow,
+                                space: CGColorSpaceCreateDeviceGray(),
+                                bitmapInfo: CGBitmapInfo(rawValue: CGImageAlphaInfo.none.rawValue))!
+        
+        context.draw(cgImage, in: CGRect(x: 0, y: 0, width: width, height: height))
+        
+        return pixelValues
+    }
+}
+
+// Example usage
+if let image = UIImage(named: "your_image_name") {
+    if let hash = ImageDhash.dHash(for: image) {
+        print("dHash: \(hash)")
+    } else {
+        print("Failed to generate dHash.")
+    }
+} else {
+    print("Image not found.")
+}
+
+struct SamplePhoto {
+    var creation_date:Date
+    var file_id: String
+    var thumbnail: UIImage
+}
+
+
+func getPhotos(from cuttofDate:Date, completion: ([SamplePhoto])->()) {
+    let fetchOptions = PHFetchOptions()
+    fetchOptions.predicate = NSPredicate(format: "creationDate >= %@", cutoffDate as NSDate)
+
+    let fetchResult = PHAsset.fetchAssets(with: .image, options: fetchOptions)
+
+    let imageManager = PHCachingImageManager()
+
+    fetchResult.enumerateObjects { asset, _, _ in
+        // Retrieve metadata from the asset
+        let assetMetadata = asset.localIdentifier // or other metadata you need
+        
+//        // Request thumbnail image
+//        let targetSize = CGSize(width: desiredWidth, height: desiredHeight)
+//        let requestOptions = PHImageRequestOptions()
+//        requestOptions.isSynchronous = false
+//        requestOptions.deliveryMode = .fastFormat
+//
+//        imageManager.requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFill, options: requestOptions) { image, _ in
+//            if let thumbnail = image {
+//                // Do something with the thumbnail and metadata
+//            }
+//        }
+    }
+
 }

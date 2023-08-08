@@ -27,6 +27,7 @@
 		CAB6974D2A55A2B200F84F14 /* LocalPhotosService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB6974C2A55A2B200F84F14 /* LocalPhotosService.swift */; };
 		CAB6974F2A56C6AC00F84F14 /* GallerySampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB6974E2A56C6AC00F84F14 /* GallerySampleData.swift */; };
 		CAB697512A58A25F00F84F14 /* PagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB697502A58A25F00F84F14 /* PagerView.swift */; };
+		CAE8CDE32A7E96570089A1DF /* sshKey6 in Resources */ = {isa = PBXBuildFile; fileRef = CAE8CDE22A7E96570089A1DF /* sshKey6 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +48,7 @@
 		CAB6974C2A55A2B200F84F14 /* LocalPhotosService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalPhotosService.swift; sourceTree = "<group>"; };
 		CAB6974E2A56C6AC00F84F14 /* GallerySampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GallerySampleData.swift; sourceTree = "<group>"; };
 		CAB697502A58A25F00F84F14 /* PagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerView.swift; sourceTree = "<group>"; };
+		CAE8CDE22A7E96570089A1DF /* sshKey6 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sshKey6; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +87,7 @@
 		CA2B08C82A52C74C00EC793D /* PhotoPrism */ = {
 			isa = PBXGroup;
 			children = (
+				CAE8CDE22A7E96570089A1DF /* sshKey6 */,
 				CAB6974B2A55A25800F84F14 /* Info.plist */,
 				CAA0FAF62A7ACA5900D68E4C /* NIOSSHClient */,
 				CA2B08C92A52C74C00EC793D /* PhotoPrismApp.swift */,
@@ -195,6 +198,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CAE8CDE32A7E96570089A1DF /* sshKey6 in Resources */,
 				CA2B08D12A52C74E00EC793D /* Preview Assets.xcassets in Resources */,
 				CA2B08CE2A52C74E00EC793D /* Assets.xcassets in Resources */,
 			);

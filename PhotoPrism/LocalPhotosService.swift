@@ -28,7 +28,7 @@ class PhotoService {
     private lazy var getImagesQueue = DispatchQueue(label: "PhotoService_getImagesQueue",
                                                     qos: .userInteractive, attributes: [],
                                                     autoreleaseFrequency: .inherit, target: nil)
-    private lazy var thumbnailSize = CGSize(width: 200, height: 200)
+    private lazy var thumbnailSize = CGSize(width: 100, height: 100)
     private lazy var imageAlbumsIds = AtomicArray<Int>()
     private let getImageSemaphore = DispatchSemaphore(value: 12)
 
